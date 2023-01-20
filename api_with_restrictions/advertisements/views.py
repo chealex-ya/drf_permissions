@@ -4,7 +4,7 @@ from advertisements.models import Advertisement
 from advertisements.serializers import AdvertisementSerializer
 from advertisements.permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
-from advertisements.models import Date_filter
+from advertisements.filters import AdvertisementFilter
 
 
 class AdvertisementViewSet(ModelViewSet):
@@ -15,7 +15,7 @@ class AdvertisementViewSet(ModelViewSet):
 
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['status', 'created_at']
-    filterset_class = Date_filter
+    filterset_class = AdvertisementFilter
 
     def get_permissions(self):
         """Получение прав для действий."""
