@@ -42,10 +42,8 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         creator = self.context["request"].user
         open_adv = self.context["view"].queryset.filter(creator=creator, status="OPEN").count()
 
-        if open_adv > 10:
-            if self.context["request"].method == "PATCH":
-                []
-            else:
+        if self.context["request"].method == "POST" or data["status"] == "OPEN":
+            if open_adv > 10:
                 raise serializers.ValidationError(detail="У пользователя не должно быть больше 10 открытых объявлений")
 
         return data
